@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
 
 # load data, converts csv into pandas dataframe
-cd = pd.read_csv('/Data/CompleteData.csv')
+cd = pd.read_csv('/Users/chloewells/PycharmProjects/WeatherStations/Data/CompleteData.csv')
 
 
 # create a function to convert date string to float, with day 1 being the first day of 2011
@@ -85,23 +85,24 @@ for x in column_names:
     errors = abs(predictions - Y_test)
     print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
 
+
 # create variables for the outputs
-TempMin_Pred = output[0]
+TempMinAbs_Pred = output[0]
 TempProm_Pred = output[1]
-TempMax_Pred = output[2]
+TempMaxAbs_Pred = output[2]
 Hum_Pred = output[3]
 Precipitacion_Pred = output[4]
 RadSolar_Pred = output[5]
-RadSolarMax_Pred = output[6]
+RadSolarMaxAbs_Pred = output[6]
 IndiceUV_Pred = output[7]
-InduceUVMax_Pred = output[8]
+InduceUVMaxAbs_Pred = output[8]
 VientoX_Pred = output[9]
 VientoY_Pred = output[10]
 
 
 print(type(VientoY_Pred))
 
-
+print(len(RadSolar_Pred))
 
 
 #pd.set_option('display.max_columns', None)
