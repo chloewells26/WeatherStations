@@ -2,9 +2,11 @@ import pandas as pd
 import numpy as np
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split
+import os
 
+BaseDir = os.path.split(os.path.split(__file__)[0])[0]
 # load data, converts csv into pandas dataframe
-cd = pd.read_csv('/Users/chloewells/PycharmProjects/WeatherStations/Data/CompleteData.csv')
+cd = pd.read_csv(BaseDir +'/Data/CompleteData.csv')
 
 
 # create a function to convert date string to float, with day 1 being the first day of 2011

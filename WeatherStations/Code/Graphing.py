@@ -2,8 +2,8 @@ import matplotlib.pyplot as plt
 import RandomForestsDataCompletion as rfc  # to reference these variables say rfc.variablename
 
 actual1 = rfc.cd['TempMinAbs'].tail(int(len(rfc.cd['TempMinAbs'])*(4260/10648)))
-plt.plot(range(1, 4261), rfc.TempMinAbs_Pred, "g-", label='Prediction')
-plt.plot(range(1, 4261), actual1, "b-", label='Actual')
+plt.plot(rfc.TempMinAbs_Pred, "g-", label='Prediction')
+plt.plot(actual1.values, "b-", label='Actual')
 plt.title('Temp Min Abs')
 plt.ylabel('^0 C')
 plt.xlabel('Data Points')
