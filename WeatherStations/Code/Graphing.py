@@ -1,28 +1,17 @@
 import matplotlib.pyplot as plt
 import RandomForestsDataCompletion as rfc  # to reference these variables say rfc.variablename
 
-actual1 = rfc.cd['TempMinAbs'].tail(int(len(rfc.cd['TempMinAbs'])*(4260/10648)))
-plt.plot(rfc.TempMinAbs_Pred, "g-", label='Prediction')
-plt.plot(actual1.values, "b-", label='Actual')
-plt.title('Temp Min Abs')
-plt.ylabel('^0 C')
-plt.xlabel('Data Points')
-plt.legend()
-plt.show()
-
-
-'''
-# create values for x, leaving out the date column and the location column
-column_names = ['TempMinAbs', 'TempProm', 'TempMaxAbs', 'Hum', 'Precipitacion', 'RadSolar', 'RadSolarMaxAbs', 'IndiceUV',
-                'IndiceUVMaxAbs', 'VientoX', 'VientoY']
-# start a for loop  containing the random forests
-for x in column_names:
-    actual = rfc.cd[x].tail(int(len(rfc.cd[x])*(4260/10648)))
-    z = x + '_Pred'
-    plt.plot(range(1, 4261), rfc.z, "g-", label='Prediction')
-    plt.plot(range(1, 4261), actual, "b-", label='Actual')
-    plt.title(x)
-    plt.ylabel('units)')
+column_numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+for x in column_numbers:
+    actual = rfc.ActualData.iloc[:, x].tail(int(len(rfc.ActualData.iloc[:, x])*(4260/10648)))
+    plt.plot(rfc.PredictionData.iloc[:, x], "g-", label='Prediction')
+    plt.plot(actual.values, "b-", label='Actual')
+    plt.title('Predictions compared to actual')
+    plt.ylabel('units')
     plt.xlabel('Data Points')
+    plt.legend()
     plt.show()
-'''
+
+
+
+

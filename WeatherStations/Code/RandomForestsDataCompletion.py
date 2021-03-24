@@ -6,7 +6,7 @@ import os
 
 BaseDir = os.path.split(os.path.split(__file__)[0])[0]
 # load data, converts csv into pandas dataframe
-cd = pd.read_csv(BaseDir +'/Data/CompleteData.csv')
+cd = pd.read_csv(BaseDir + '/Data/CompleteData.csv')
 
 
 # create a function to convert date string to float, with day 1 being the first day of 2011
@@ -66,16 +66,18 @@ cd['VientoX'] = (cd['VelocidadVientoMax']) * np.sin(np.deg2rad(cd['DireccionVien
 cd['VientoY'] = (cd['VelocidadVientoMax']) * np.cos(np.deg2rad(cd['DireccionVientoMax']))
 
 # drop original wind speed and direction values
-cd = cd.drop(['VelocidadVientoMax','DireccionVientoMax'], axis=1)
+cd = cd.drop(['VelocidadVientoMax', 'DireccionVientoMax'], axis=1)
 
 # handle missing values
 cd = cd.dropna()
 
 # create a list to store generated values
 output = []
+
 # create values for x, leaving out the date column and the location column
 column_names = ['TempMinAbs', 'TempProm', 'TempMaxAbs', 'Hum', 'Precipitacion', 'RadSolar', 'RadSolarMaxAbs', 'IndiceUV',
                 'IndiceUVMaxAbs', 'VientoX', 'VientoY']
+
 # start a for loop  containing the random forests
 for x in column_names:
     X_train, X_test, Y_train, Y_test = train_test_split(cd.drop(labels=[x], axis =1), cd[x].values,
@@ -85,26 +87,21 @@ for x in column_names:
     predictions = rf.predict(X_test)
     output.append(predictions)               # append the output of the random forest to the list
     errors = abs(predictions - Y_test)
-    print('Mean Absolute Error:', round(np.mean(errors), 2), 'degrees.')
+    print('Mean Absolute Error:', np.round(np.mean(errors), 2), 'degrees.')
 
 
-# create variables for the outputs
-TempMinAbs_Pred = output[0]
-TempProm_Pred = output[1]
-TempMaxAbs_Pred = output[2]
-Hum_Pred = output[3]
-Precipitacion_Pred = output[4]
-RadSolar_Pred = output[5]
-RadSolarMaxAbs_Pred = output[6]
-IndiceUV_Pred = output[7]
-InduceUVMaxAbs_Pred = output[8]
-VientoX_Pred = output[9]
-VientoY_Pred = output[10]
+
+PredictionData = pd.DataFrame(output, index=['TempMinAbs_Pred', 'TempProm_Pred', 'TempMaxAbs_Pred', 'Hum_Pred',
+                              'Precipitacion_Pred', 'RadSolar_Pred', 'RadSolarMaxAbs_Pred', 'IndiceUV_Pred',
+                              'IndiceUVMaxAbs_Pred', 'VientoX_Pred', 'VientoY_Pred'])
+
+PredictionData = PredictionData.T
+
+ActualData = cd.drop(['Dia', 'location'], axis=1)
 
 
-print(type(VientoY_Pred))
 
-print(len(RadSolar_Pred))
+
 
 
 #pd.set_option('display.max_columns', None)
